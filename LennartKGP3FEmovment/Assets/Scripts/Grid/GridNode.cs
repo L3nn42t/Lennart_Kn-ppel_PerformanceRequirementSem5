@@ -17,7 +17,7 @@ public class GridNode : MonoBehaviour
     public GridNodeSearchState _searchState;
     public List<GridNode> _neighbours = new List<GridNode>();
     public LayerMask gridmask;
-   
+    public Manager manager;
 
     //Placeholder, to be set by unit object
     public int groundcost;
@@ -61,23 +61,34 @@ public class GridNode : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        switch (_type)
+        if (!manager._isunitselected)
         {
-            case GridNodeType.Ground:
-                SetGridNodeType(GridNodeType.Wall);
-                break;
-            case GridNodeType.Wall:
-                SetGridNodeType(GridNodeType.Forest);
-                break;
-            case GridNodeType.Forest:
-                SetGridNodeType(GridNodeType.Rought);
-                break;
-            case GridNodeType.Rought:
-                SetGridNodeType(GridNodeType.Ground);
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
+            switch (_type)
+            {
+                case GridNodeType.Ground:
+                    SetGridNodeType(GridNodeType.Wall);
+                    break;
+                case GridNodeType.Wall:
+                    SetGridNodeType(GridNodeType.Forest);
+                    break;
+                case GridNodeType.Forest:
+                    SetGridNodeType(GridNodeType.Rought);
+                    break;
+                case GridNodeType.Rought:
+                    SetGridNodeType(GridNodeType.Ground);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
+        else
+        {
+            Unit unit = manager.selectedUnit;
+            
+            unit._targetNode = this;
+            Debug.Log("targetnode is selected");
+        }
+       
     }
 
     private void SetGridNodeType(GridNodeType type)

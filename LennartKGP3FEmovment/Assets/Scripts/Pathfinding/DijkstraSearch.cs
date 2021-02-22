@@ -8,7 +8,7 @@ namespace GP3._04_SearchAlgorithms.Dijkstra
 		protected override void InitializeSearch()
 		{
 			_startNode = _unit.ClosestGridNode;
-			//_goalNode = .ClosestGridNode;
+			_goalNode = _unit._targetNode;
 
 			foreach (GridNode gridNode in _visited.Keys)
 			{

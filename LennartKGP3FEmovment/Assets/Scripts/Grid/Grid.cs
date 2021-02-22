@@ -10,7 +10,7 @@ public class Grid : MonoBehaviour
 	[SerializeField] private SearchBase _searchAlgorithm;
 	[SerializeField] private float _width;
 	[SerializeField] private float _height;
-
+	[SerializeField] private Manager _manager;
 	public List<GridNode> _nodes = new List<GridNode>();
 
 	public Unit unit;
@@ -57,6 +57,7 @@ public class Grid : MonoBehaviour
 				gridNode.wallcost = unit._type.Wallcost;
 				gridNode.groundcost = unit._type.Groundcost;
 				gridNode.roughcost = unit._type.RoughCost;
+				gridNode.manager = _manager;
 				_nodes.Add(gridNode);
 			}
 		}

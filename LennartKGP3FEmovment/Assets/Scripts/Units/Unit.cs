@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using GP3._04_SearchAlgorithms.Dijkstra;
 
 public class Unit : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class Unit : MonoBehaviour
     private Vector3 _offset;
     //MovmentStuff
     public Manager manager;
-    //public GridNode _targetNode;
+    public GridNode _targetNode;
     public GameObject highlight;
     //points for Movment
 
@@ -43,7 +44,10 @@ public class Unit : MonoBehaviour
         if (!_isselected)
         {
             _isselected = true;
+            manager.selectedUnit = this;
+            manager._isunitselected = true;
             selctionIndicator.SetActive(true);
+
             MovmentRangeSearch rangeSearch = FindObjectOfType<MovmentRangeSearch>();
             rangeSearch.Search();
             AttackRangeSearch attackSearch = FindObjectOfType<AttackRangeSearch>();
@@ -66,6 +70,8 @@ public class Unit : MonoBehaviour
             //    node.Reset();
             //}
             manager.ResetNodeUseState();
+            manager.selectedUnit = null;
+            manager._isunitselected = false;
             _isselected = false;
             selctionIndicator.SetActive(false);
         }
@@ -80,10 +86,26 @@ public class Unit : MonoBehaviour
    
     public void UnitMove()
     {
-
+        DijkstraSearch dijkstraSearch = FindObjectOfType<DijkstraSearch>();
+        dijkstraSearch.SearchPath();
     }
     public void UnitAttack()
     {
-
+        
+    }
+    public void Update()
+    {
+        if(_targetNode == null)
+        {
+            
+        }
+        else
+        {
+            if (manager.selectedUnit = this)
+            {
+                UnitMove();
+            }
+        }
+        
     }
 }

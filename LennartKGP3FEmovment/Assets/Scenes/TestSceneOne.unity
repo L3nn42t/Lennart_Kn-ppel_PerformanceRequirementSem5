@@ -317,6 +317,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   manager: {fileID: 2016761962}
+  _targetNode: {fileID: 0}
   highlight: {fileID: 0}
   MovmentPoints: 2
   AttackRange: 1
@@ -453,6 +454,7 @@ MonoBehaviour:
   _searchAlgorithm: {fileID: 1162431679}
   _width: 10
   _height: 10
+  _manager: {fileID: 2016761962}
   _nodes: []
   unit: {fileID: 78585165}
 --- !u!4 &1162431678

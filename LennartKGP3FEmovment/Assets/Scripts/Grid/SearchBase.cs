@@ -60,6 +60,20 @@ public abstract class SearchBase : MonoBehaviour
 
 		//BuildPath();
 	}
+	public void SearchPath()
+	{
+		InitializeSearch();
+
+		while (_openList.Count > 0)
+		{
+			if (StepToGoal())
+			{
+				break;
+			}
+		}
+
+		BuildPath();
+	}
 
 	protected abstract void InitializeSearch();
 	protected abstract bool StepToGoal();
