@@ -42,7 +42,7 @@ public class MovmentRangeSearch : SearchBase
 				// only use nextnode if cost less or equal to movmentpoints
 				if (newCost <= _unit.MovmentPoints)
 				{
-					Debug.Log(newCost);
+					
 					_openList.Add(next);
 					_visited.Add(next, current);
 					next.CostSoFar = newCost;

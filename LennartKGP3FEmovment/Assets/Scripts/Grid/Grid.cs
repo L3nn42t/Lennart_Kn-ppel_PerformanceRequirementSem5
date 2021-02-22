@@ -11,7 +11,7 @@ public class Grid : MonoBehaviour
 	[SerializeField] private float _width;
 	[SerializeField] private float _height;
 
-	private List<GridNode> _nodes = new List<GridNode>();
+	public List<GridNode> _nodes = new List<GridNode>();
 
 	public Unit unit;
 	private void Awake()

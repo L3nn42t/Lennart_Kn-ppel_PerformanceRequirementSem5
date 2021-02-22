@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class Manager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Unit selectedUnit;
+    public bool _isunitselected;
+    public Grid _grid;
 
-    // Update is called once per frame
-    void Update()
+    public void ResetNodeUseState()
     {
-        
+        foreach(GridNode node in _grid._nodes)
+        {
+            node.SetGridNodeUseState(GridNodeUseState.none);
+        }
     }
 }

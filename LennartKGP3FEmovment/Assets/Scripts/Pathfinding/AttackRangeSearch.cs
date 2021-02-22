@@ -20,8 +20,9 @@ public class AttackRangeSearch : SearchBase
 				{
 					Debug.Log(neighbor);
 					
-					_openList.Add(neighbor);
-					neighbor.CostSoFar = 1;
+					_openList.Add(neighbor);					
+					neighbor.CostSoFar = 0;
+					
 				}
 			}
 		}
@@ -69,7 +70,7 @@ public class AttackRangeSearch : SearchBase
 		if (_openList.Count == 0)
 		{
 			Debug.Log("AttackrangeIsDone");
-			_unit._attackable = _visited;
+			_unit._attackable = this._visited;
 			return true;
 		}
 		else

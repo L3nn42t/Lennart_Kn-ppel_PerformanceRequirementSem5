@@ -16,6 +16,7 @@ public class Unit : MonoBehaviour
     private Vector3 _screenPoint;
     private Vector3 _offset;
     //MovmentStuff
+    public Manager manager;
     //public GridNode _targetNode;
     public GameObject highlight;
     //points for Movment
@@ -28,7 +29,7 @@ public class Unit : MonoBehaviour
     public int Damage;
 
 
-    public Dictionary<GridNode, GridNode> _walkable = new Dictionary<GridNode, GridNode>();// Tiles are stored sepreatly in case
+    public Dictionary<GridNode, GridNode> _walkable = new Dictionary<GridNode, GridNode>();// Tiles are stored sepreatly in case i implement attacking
     public Dictionary<GridNode, GridNode> _attackable = new Dictionary<GridNode, GridNode>();
     public void Start()
     {
@@ -56,14 +57,15 @@ public class Unit : MonoBehaviour
             _screenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
             _offset = gameObject.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, _screenPoint.z));
 
-            foreach(GridNode node in _walkable.Keys)
-            {
-                node.Reset();
-            }
-            foreach (GridNode node in _attackable.Keys)
-            {
-                node.Reset();
-            }
+            //foreach(GridNode node in _walkable.Keys)
+            //{
+            //    node.Reset();
+            //}
+            //foreach (GridNode node in _attackable.Keys)
+            //{
+            //    node.Reset();
+            //}
+            manager.ResetNodeUseState();
             _isselected = false;
             selctionIndicator.SetActive(false);
         }
