@@ -18,6 +18,7 @@ public class GridNode : MonoBehaviour
     public List<GridNode> _neighbours = new List<GridNode>();
     public LayerMask gridmask;
     public Manager manager;
+    private GridNode thisNode;
 
     //Placeholder, to be set by unit object
     public int groundcost;
@@ -58,6 +59,7 @@ public class GridNode : MonoBehaviour
         
         _searchUseImage.enabled = false;
         _searchStateImage.enabled = false;
+        thisNode = GetComponent<GridNode>();
     }
     private void OnMouseDown()
     {
@@ -84,9 +86,18 @@ public class GridNode : MonoBehaviour
         else
         {
             Unit unit = manager.selectedUnit;
+            if(thisNode._useState == GridNodeUseState.walkable)
+            {
+                unit._targetNode = thisNode;
+                unit.pathfound = false;
+                Debug.Log("targetnode is selected");
+            }
+            else if (thisNode._useState == GridNodeUseState.attackable)
+            {
+                //insert attack info here
+
+            }
             
-            unit._targetNode = this;
-            Debug.Log("targetnode is selected");
         }
        
     }
@@ -149,7 +160,9 @@ public class GridNode : MonoBehaviour
         _searchStateImage.enabled = true;
         switch (state)
         {
-            
+            case GridNodeSearchState.None:
+                _searchStateImage.color = SearchSettings.Instance.NoneNodeColor;
+                break;
             case GridNodeSearchState.Queue:
                 _searchStateImage.color = SearchSettings.Instance.QueueNodeColor;
                 break;

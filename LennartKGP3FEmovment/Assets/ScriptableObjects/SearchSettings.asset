@@ -22,4 +22,4 @@ MonoBehaviour:
   _forestNodeColor: {r: 0.19747292, g: 0.5566038, b: 0.08139017, a: 1}
   _queueNodeColor: {r: 0, g: 0, b: 0, a: 0}
   _processedNodeColor: {r: 0, g: 0, b: 0, a: 0}
-  _pathNodeColor: {r: 1, g: 0.65336907, b: 0, a: 0.80784315}
+  _pathNodeColor: {r: 1, g: 0.65336907, b: 0, a: 1}

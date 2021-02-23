@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using System.Linq;
 
 namespace GP3._04_SearchAlgorithms.Dijkstra
@@ -7,13 +9,15 @@ namespace GP3._04_SearchAlgorithms.Dijkstra
 	{
 		protected override void InitializeSearch()
 		{
+			
 			_startNode = _unit.ClosestGridNode;
-			_goalNode = _unit._targetNode;
+			_goalNode = _unit._moveNode;
 
-			foreach (GridNode gridNode in _visited.Keys)
-			{
-				gridNode.Reset();
-			}
+			//foreach (GridNode gridNode in _visited.Keys)
+			//{
+			//	gridNode.Reset();
+			//}
+			_manager.ResetNodeSearchState();
 			
 			_openList = new List<GridNode>();
 			_visited = new Dictionary<GridNode, GridNode>();
@@ -26,21 +30,20 @@ namespace GP3._04_SearchAlgorithms.Dijkstra
 		protected override bool StepToGoal()
 		{
 			// sort all 
+			
 			_openList = _openList.OrderBy(n => n.CostSoFar).ToList();
 			GridNode current = _openList[0];
 			
 			// goal found
 			if (current == _goalNode)
 			{
+				Debug.Log("search finished");
 				return true;
 			}
 
 			foreach (GridNode next in current.Neighbours)
 			{
-				if (next.IsWall)
-				{
-					continue;
-				}
+				
 
 				float newCost = current.CostSoFar + next.Cost;
 				bool alreadyVisited = _visited.ContainsKey(next);

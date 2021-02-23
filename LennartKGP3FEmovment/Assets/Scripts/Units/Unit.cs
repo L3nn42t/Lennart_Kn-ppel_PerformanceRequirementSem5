@@ -19,6 +19,7 @@ public class Unit : MonoBehaviour
     //MovmentStuff
     public Manager manager;
     public GridNode _targetNode;
+    public GridNode _moveNode; // to be used for attacking using the dictionary to retrace the path fom a attackable node to a walkable one
     public GameObject highlight;
     //points for Movment
 
@@ -28,6 +29,11 @@ public class Unit : MonoBehaviour
     //Wip Stats
     public int Health;
     public int Damage;
+    public bool pathfound = false;
+
+    //ActionsWip
+    private bool movedthisRound;
+    private bool attackedthisRound;
 
 
     public Dictionary<GridNode, GridNode> _walkable = new Dictionary<GridNode, GridNode>();// Tiles are stored sepreatly in case i implement attacking
@@ -43,6 +49,7 @@ public class Unit : MonoBehaviour
         
         if (!_isselected)
         {
+            manager.ResetNodes();
             _isselected = true;
             manager.selectedUnit = this;
             manager._isunitselected = true;
@@ -69,7 +76,7 @@ public class Unit : MonoBehaviour
             //{
             //    node.Reset();
             //}
-            manager.ResetNodeUseState();
+            manager.ResetNodes();
             manager.selectedUnit = null;
             manager._isunitselected = false;
             _isselected = false;
@@ -86,8 +93,10 @@ public class Unit : MonoBehaviour
    
     public void UnitMove()
     {
+        _moveNode = _targetNode;
         DijkstraSearch dijkstraSearch = FindObjectOfType<DijkstraSearch>();
         dijkstraSearch.SearchPath();
+        pathfound = true;
     }
     public void UnitAttack()
     {
@@ -101,9 +110,17 @@ public class Unit : MonoBehaviour
         }
         else
         {
-            if (manager.selectedUnit = this)
+            if (manager.selectedUnit = this) //i hate using so many if statements, but they don't accept multible parameters
             {
-                UnitMove();
+                if (!pathfound && _targetNode._useState == GridNodeUseState.walkable)
+                {
+                    UnitMove();
+                }
+                else if(!pathfound && _targetNode._useState == GridNodeUseState.attackable)
+                {
+                    //UnitAttack()
+                }
+
             }
         }
         

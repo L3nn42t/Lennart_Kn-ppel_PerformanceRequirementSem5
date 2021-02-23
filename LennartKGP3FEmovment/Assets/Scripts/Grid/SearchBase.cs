@@ -9,7 +9,7 @@ public abstract class SearchBase : MonoBehaviour
 	public Unit _unit;
 	protected GridNode _startNode;
 	protected GridNode _goalNode;
-
+	public Manager _manager;
 	public Unit Unit { set => _unit = value; }
 	private void BuildPath()
 	{
@@ -32,6 +32,7 @@ public abstract class SearchBase : MonoBehaviour
 	}
 	private IEnumerator SearchInternalCoroutine()
 	{
+		_unit = _manager.selectedUnit; //gets referenced to support several different Units
 		InitializeSearch();
 		yield return new WaitForSeconds(1);
 
@@ -48,6 +49,7 @@ public abstract class SearchBase : MonoBehaviour
 
 	public void Search()
 	{
+		_unit = _manager.selectedUnit;
 		InitializeSearch();
 
 		while (_openList.Count > 0)
@@ -62,6 +64,7 @@ public abstract class SearchBase : MonoBehaviour
 	}
 	public void SearchPath()
 	{
+		_unit = _manager.selectedUnit;
 		InitializeSearch();
 
 		while (_openList.Count > 0)
