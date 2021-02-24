@@ -51,6 +51,7 @@ public class Unit : MonoBehaviour
         {
             manager.ResetNodes();
             _isselected = true;
+            
             manager.selectedUnit = this;
             manager._isunitselected = true;
             selctionIndicator.SetActive(true);
@@ -80,6 +81,7 @@ public class Unit : MonoBehaviour
             manager.selectedUnit = null;
             manager._isunitselected = false;
             _isselected = false;
+            highlight.SetActive(false);
             selctionIndicator.SetActive(false);
         }
     }
@@ -106,10 +108,12 @@ public class Unit : MonoBehaviour
     {
         if(_targetNode == null)
         {
-            
+            highlight.SetActive(false);
         }
         else
         {
+            highlight.SetActive(true);
+            highlight.transform.position = _targetNode.transform.position;
             if (manager.selectedUnit = this) //i hate using so many if statements, but they don't accept multible parameters
             {
                 if (!pathfound && _targetNode._useState == GridNodeUseState.walkable)

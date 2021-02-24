@@ -7,8 +7,8 @@ public abstract class SearchBase : MonoBehaviour
 	public  List<GridNode> _openList = new List<GridNode>();
 	public Dictionary<GridNode, GridNode> _visited = new Dictionary<GridNode, GridNode>();
 	public Unit _unit;
-	protected GridNode _startNode;
-	protected GridNode _goalNode;
+	public GridNode _startNode;
+	public GridNode _goalNode;
 	public Manager _manager;
 	public Unit Unit { set => _unit = value; }
 	private void BuildPath()
@@ -24,7 +24,11 @@ public abstract class SearchBase : MonoBehaviour
 
 		path.Add(_startNode);
 		path.Reverse();
-		
+		foreach (GridNode gridNode in path)
+		{
+			gridNode.SetGridNodeSearchState(GridNodeSearchState.PartOfPath);
+		}
+
 	}
 	public void SlowSearch()
 	{

@@ -20,6 +20,6 @@ MonoBehaviour:
   _wallNodeColor: {r: 0.4433962, g: 0.4433962, b: 0.4433962, a: 1}
   _roughtNodeColor: {r: 0.26415092, g: 0.12762348, b: 0, a: 1}
   _forestNodeColor: {r: 0.19747292, g: 0.5566038, b: 0.08139017, a: 1}
-  _queueNodeColor: {r: 0, g: 0, b: 0, a: 0}
-  _processedNodeColor: {r: 0, g: 0, b: 0, a: 0}
+  _queueNodeColor: {r: 0.9716981, g: 0.49043253, b: 0.8965077, a: 1}
+  _processedNodeColor: {r: 0.7169812, g: 0.01690993, b: 0.40823475, a: 1}
   _pathNodeColor: {r: 1, g: 0.65336907, b: 0, a: 1}
