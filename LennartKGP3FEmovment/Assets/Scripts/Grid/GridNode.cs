@@ -63,6 +63,7 @@ public class GridNode : MonoBehaviour
     }
     private void OnMouseDown()
     {
+        Unit unit = manager.selectedUnit;
         if (!manager._isunitselected)
         {
             switch (_type)
@@ -83,9 +84,16 @@ public class GridNode : MonoBehaviour
                     throw new ArgumentOutOfRangeException();
             }
         }
+        else if(thisNode == unit._targetNode && unit.pathfound)
+        {
+            unit.canmove = true;
+            // movment here
+
+            unit._targetNode = null; // empty node from unit
+        }
         else
         {
-            Unit unit = manager.selectedUnit;
+            
             if(thisNode._useState == GridNodeUseState.walkable)
             {
                 unit._targetNode = thisNode;
@@ -99,6 +107,7 @@ public class GridNode : MonoBehaviour
             }
             
         }
+        
        
     }
 

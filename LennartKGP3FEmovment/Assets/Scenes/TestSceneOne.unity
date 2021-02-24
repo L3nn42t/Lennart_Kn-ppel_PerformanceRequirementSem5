@@ -325,6 +325,7 @@ MonoBehaviour:
   Health: 10
   Damage: 10
   pathfound: 0
+  canmove: 0
 --- !u!4 &78585166
 Transform:
   m_ObjectHideFlags: 0
@@ -536,8 +537,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _prefab: {fileID: 6128249006908234094, guid: 45826e9c054cc9843a5e4feef4d36708, type: 3}
   _searchAlgorithm: {fileID: 1162431679}
-  _width: 10
-  _height: 10
+  _width: 12
+  _height: 12
   _manager: {fileID: 2016761962}
   _nodes: []
   unit: {fileID: 78585165}
@@ -549,7 +550,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1162431676}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.3, y: -4.5, z: 0}
+  m_LocalPosition: {x: -6.25, y: -4.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

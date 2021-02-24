@@ -34,7 +34,7 @@ public class Unit : MonoBehaviour
     //ActionsWip
     private bool movedthisRound;
     private bool attackedthisRound;
-
+    public bool canmove = false;
 
     public Dictionary<GridNode, GridNode> _walkable = new Dictionary<GridNode, GridNode>();// Tiles are stored sepreatly in case i implement attacking
     public Dictionary<GridNode, GridNode> _attackable = new Dictionary<GridNode, GridNode>();
@@ -93,12 +93,18 @@ public class Unit : MonoBehaviour
         _closestGridNode = overlapCircle.transform.GetComponent<GridNode>();
     }
    
-    public void UnitMove()
+    public void UnitMovePath()
     {
         _moveNode = _targetNode;
         DijkstraSearch dijkstraSearch = FindObjectOfType<DijkstraSearch>();
         dijkstraSearch.SearchPath();
         pathfound = true;
+    }
+    public void MovetoTile()
+    {
+        transform.position = _moveNode.transform.position;
+        SetToClosestGridNode();
+        movedthisRound = true;
     }
     public void UnitAttack()
     {
@@ -118,13 +124,21 @@ public class Unit : MonoBehaviour
             {
                 if (!pathfound && _targetNode._useState == GridNodeUseState.walkable)
                 {
-                    UnitMove();
+                    UnitMovePath();
                 }
                 else if(!pathfound && _targetNode._useState == GridNodeUseState.attackable)
                 {
                     //UnitAttack()
                 }
 
+            }
+        }
+        if(!movedthisRound && pathfound)
+        {
+            if(canmove == true)
+            {
+                MovetoTile();
+                canmove = false;
             }
         }
         
