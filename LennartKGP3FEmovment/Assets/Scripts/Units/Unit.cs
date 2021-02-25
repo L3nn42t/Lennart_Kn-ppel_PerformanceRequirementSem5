@@ -7,20 +7,20 @@ using GP3._04_SearchAlgorithms.Dijkstra;
 
 public class Unit : MonoBehaviour
 {
-    private bool _isselected;
-    [SerializeField] private GameObject selctionIndicator;
+    public bool _isselected;
+    public GameObject selctionIndicator;
     public UnitType _type;
 
     private GridNode _closestGridNode;
     public LayerMask gridMask;
     public GridNode ClosestGridNode => _closestGridNode;
-    private Vector3 _screenPoint;
-    private Vector3 _offset;
+    public Vector3 _screenPoint;
+    public Vector3 _offset;
     //MovmentStuff
     public Manager manager;
     public GridNode _targetNode;
     public GridNode _moveNode; // to be used for attacking using the dictionary to retrace the path fom a attackable node to a walkable one
-    public GameObject highlight;
+    
     //points for Movment
 
     public int MovmentPoints;
@@ -31,10 +31,11 @@ public class Unit : MonoBehaviour
     public int Damage;
     public bool pathfound = false;
 
+    public Unit targetUnit;
     //ActionsWip
-    [SerializeField]
-    private bool movedthisRound;
-    private bool attackedthisRound;
+    
+    public bool movedthisRound;
+    public bool attackedthisRound;
     public bool canmove = false;
 
     public Dictionary<GridNode, GridNode> _walkable = new Dictionary<GridNode, GridNode>();// Tiles are stored sepreatly in case i implement attacking
@@ -56,6 +57,7 @@ public class Unit : MonoBehaviour
             manager.selectedUnit = this;
             manager._isunitselected = true;
             selctionIndicator.SetActive(true);
+            manager.GiveNodeCost();
 
             MovmentRangeSearch rangeSearch = FindObjectOfType<MovmentRangeSearch>();
             rangeSearch.Search();
@@ -82,8 +84,9 @@ public class Unit : MonoBehaviour
             manager.selectedUnit = null;
             manager._isunitselected = false;
             _isselected = false;
-            highlight.SetActive(false);
+            
             selctionIndicator.SetActive(false);
+            movedthisRound = false;// wip instedad of a real roundSystem
         }
     }
     public void SetToClosestGridNode()
@@ -108,21 +111,39 @@ public class Unit : MonoBehaviour
         movedthisRound = true;
         manager.ResetNodes();
         pathfound = false;
+        // deselct unit, should add a method
+        ////manager.ResetNodes(); // messes with the movment
+        ////manager.selectedUnit = null;
+        ////manager._isunitselected = false;
+        ////_isselected = false;
+
+        ////selctionIndicator.SetActive(false);
     }
     public void UnitAttack()
     {
-        
+        _targetNode = targetUnit.ClosestGridNode;
+        WalkableAreaSearch walkableAreaSearch = FindObjectOfType<WalkableAreaSearch>();
+        walkableAreaSearch.SearchMovmentPoint();
+        DijkstraSearch dijkstraSearch = FindObjectOfType<DijkstraSearch>();
+        dijkstraSearch.SearchPath();
+        pathfound = true;
+        MovetoTile();
+        //Damage Here
+        targetUnit.Health -= Damage;
+        Debug.Log(targetUnit + "was damaged ");
+
+
     }
     public void Update()
     {
         if(_targetNode == null)
         {
-            highlight.SetActive(false);
+            //highlight.SetActive(false);
         }
         else
         {
-            highlight.SetActive(true);
-            highlight.transform.position = _targetNode.transform.position;
+            //highlight.SetActive(true);
+            //highlight.transform.position = _targetNode.transform.position;
             if (manager.selectedUnit = this) //i hate using so many if statements, but they don't accept multible parameters
             {
                 if (!pathfound && _targetNode._useState == GridNodeUseState.walkable)

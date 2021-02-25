@@ -16,6 +16,7 @@ public class Grid : MonoBehaviour
 	public Unit unit;
 	private void Awake()
 	{
+		unit = _manager.selectedUnit;
 		CreateGrid();
 		//RandomlyScatterStartAndEnd();
 		InitNodes();
@@ -53,10 +54,7 @@ public class Grid : MonoBehaviour
 			for (int y = 0; y < _height; y++)
 			{
 				GridNode gridNode = Instantiate(_prefab, transform.position + new Vector3(x, y, 0), Quaternion.identity, transform);
-				gridNode.forestcost = unit._type.Forestcost;
-				gridNode.wallcost = unit._type.Wallcost;
-				gridNode.groundcost = unit._type.Groundcost;
-				gridNode.roughcost = unit._type.RoughCost;
+				_manager.GiveNodeCost();
 				gridNode.manager = _manager;
 				_nodes.Add(gridNode);
 			}

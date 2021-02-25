@@ -4,15 +4,46 @@ using UnityEngine;
 
 public class PlayerUnit : Unit
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    
+    public GameObject highlight;
+    ////private void OnMouseDown()
+    ////{
+    ////    if (_isselected)
+    ////    {
+    ////        highlight.SetActive(false);
+    ////    }
+    ////}
 
-    // Update is called once per frame
-    void Update()
+    public void Update()
     {
-        
+        if (_targetNode == null)
+        {
+            highlight.SetActive(false);
+        }
+        else
+        {
+            highlight.SetActive(true);
+            highlight.transform.position = _targetNode.transform.position;
+            if (manager.selectedUnit = this) //i hate using so many if statements, but they don't accept multible parameters
+            {
+                if (!pathfound && _targetNode._useState == GridNodeUseState.walkable)
+                {
+                    UnitMovePath();
+                }
+               
+                
+             
+
+            }
+        }
+        if (!movedthisRound && pathfound)
+        {
+            if (canmove == true)
+            {
+                MovetoTile();
+                canmove = false;
+            }
+        }
+
     }
 }

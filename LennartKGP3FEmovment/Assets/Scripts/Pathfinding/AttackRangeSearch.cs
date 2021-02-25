@@ -20,7 +20,7 @@ public class AttackRangeSearch : SearchBase
 					if (neighbor._useState != GridNodeUseState.walkable)
 					{
 						_openList.Add(neighbor);
-						neighbor.CostSoFar = 0;
+						neighbor.CostSoFar = 1; //is 1 step away from walkable area
 					}
 				}
 			}
@@ -64,7 +64,7 @@ public class AttackRangeSearch : SearchBase
 		{
 			float newCost = current.CostSoFar + 1;
 
-			if (!_visited.ContainsKey(next))
+			if (!_visited.ContainsKey(next) && next._useState != GridNodeUseState.walkable)
 			{
 				// only use nextnode if cost less or equal to movmentpoints
 				if (newCost <= _unit.AttackRange)

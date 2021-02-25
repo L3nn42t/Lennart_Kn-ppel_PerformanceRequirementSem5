@@ -82,6 +82,20 @@ public abstract class SearchBase : MonoBehaviour
 		BuildPath();
 	}
 
+	public void SearchMovmentPoint()
+	{
+		_unit = _manager.selectedUnit;
+		InitializeSearch();
+
+		while (_openList.Count > 0)
+		{
+			if (StepToGoal())
+			{
+				break;
+			}
+		}
+	}
+
 	protected abstract void InitializeSearch();
 	protected abstract bool StepToGoal();
 }
