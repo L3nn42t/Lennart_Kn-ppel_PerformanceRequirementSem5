@@ -32,6 +32,7 @@ public class Unit : MonoBehaviour
     public bool pathfound = false;
 
     //ActionsWip
+    [SerializeField]
     private bool movedthisRound;
     private bool attackedthisRound;
     public bool canmove = false;
@@ -105,6 +106,8 @@ public class Unit : MonoBehaviour
         transform.position = _moveNode.transform.position;
         SetToClosestGridNode();
         movedthisRound = true;
+        manager.ResetNodes();
+        pathfound = false;
     }
     public void UnitAttack()
     {

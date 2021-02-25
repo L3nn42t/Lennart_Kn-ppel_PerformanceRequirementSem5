@@ -9,23 +9,40 @@ public class AttackRangeSearch : SearchBase
 
 		_openList = new List<GridNode>();
 		_visited = new Dictionary<GridNode, GridNode>();
-		_visited = _unit._walkable;
-		Debug.Log("active");
-
-		foreach (GridNode gridNode in _visited.Keys)
+		List<GridNode> gridNodes = new List<GridNode>();
+		gridNodes = FindObjectOfType<Grid>()._nodes;
+		foreach(GridNode node in gridNodes)
 		{
-			foreach(GridNode neighbor in gridNode.Neighbours)
+			if(node._useState == GridNodeUseState.walkable)
 			{
-				if(neighbor._useState != GridNodeUseState.walkable)
+				foreach(GridNode neighbor in node._neighbours)
 				{
-					Debug.Log(neighbor);
-					
-					_openList.Add(neighbor);					
-					neighbor.CostSoFar = 0;
-					
+					if (neighbor._useState != GridNodeUseState.walkable)
+					{
+						_openList.Add(neighbor);
+						neighbor.CostSoFar = 0;
+					}
 				}
 			}
 		}
+
+		////_visited = _unit._walkable;  //This solution used the dictionary walkable to get the nodes, but resulted in a row of nodes that arent in any dictionary, however this means we have to use gridsearch for getting a movable point
+		////Debug.Log("active");
+
+		////foreach (GridNode gridNode in _visited.Keys)
+		////{
+		////	foreach(GridNode neighbor in gridNode.Neighbours)
+		////	{
+		////		if(neighbor._useState != GridNodeUseState.walkable)
+		////		{
+		////			Debug.Log(neighbor);
+					
+		////			_openList.Add(neighbor);					
+		////			neighbor.CostSoFar = 0;
+					
+		////		}
+		////	}
+		////}
 
 		
 		
