@@ -7,7 +7,7 @@ namespace UEGP3PR
 {
 	public class MovmentRangeSearch : SearchBase
 	{
-		// Breath first search
+		// Breatdh first search
 		protected override void InitializeSearch()
 		{
 

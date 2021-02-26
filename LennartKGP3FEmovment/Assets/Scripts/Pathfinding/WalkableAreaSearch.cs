@@ -34,7 +34,7 @@ namespace UEGP3PR
 			// goal found
 			if (current._useState == GridNodeUseState.walkable)
 			{
-				_unit._moveNode = current; //this is the only difference towards some of the other algorithms, but we only want to find the nearest walkable
+				_unit._moveNode = current; //this is the only difference towards some of the other algorithms, but I only want to find the nearest walkable
 				return true;
 			}
 
