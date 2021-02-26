@@ -2,58 +2,62 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WalkableAreaSearch : SearchBase
+namespace UEGP3PR
 {
-	
-	protected override void InitializeSearch()
+	public class WalkableAreaSearch : SearchBase
 	{
-		_startNode = _unit._targetNode;
 
-
-		foreach (GridNode gridNode in _visited.Keys)
+		protected override void InitializeSearch()
 		{
-			gridNode.Reset();
-		}
+			_startNode = _unit._targetNode;
 
-		_openList = new List<GridNode>();
-		_visited = new Dictionary<GridNode, GridNode>();
 
-		foreach(GridNode node in _startNode._neighbours)
-		{
-			_openList.Add(node);
-		}
-		//_openList.Add(_startNode);
-	}
-
-	protected override bool StepToGoal()
-	{
-		GridNode current = _openList[0];
-
-		// goal found
-		if (current._useState == GridNodeUseState.walkable)
-		{
-			_unit._moveNode = current;
-			return true;
-		}
-
-		foreach (GridNode next in current.Neighbours)
-		{
-			if (next == _startNode)
+			foreach (GridNode gridNode in _visited.Keys)
 			{
-				continue;
+				gridNode.Reset();
 			}
 
-			if (!_visited.ContainsKey(next))
+			_openList = new List<GridNode>();
+			_visited = new Dictionary<GridNode, GridNode>();
+
+			foreach (GridNode node in _startNode._neighbours)
 			{
-				_openList.Add(next);
-				_visited.Add(next, current);
-				next.SetGridNodeSearchState(GridNodeSearchState.Queue);
+				_openList.Add(node);
 			}
+			//_openList.Add(_startNode);
 		}
 
-		_openList.Remove(current);
-		current.SetGridNodeSearchState(GridNodeSearchState.Processed);
-		// not yet finished
-		return false;
+		protected override bool StepToGoal()
+		{
+			GridNode current = _openList[0];
+
+			// goal found
+			if (current._useState == GridNodeUseState.walkable)
+			{
+				_unit._moveNode = current; //this is the only difference towards some of the other algorithms, but we only want to find the nearest walkable
+				return true;
+			}
+
+			foreach (GridNode next in current.Neighbours)
+			{
+				if (next == _startNode)
+				{
+					continue;
+				}
+
+				if (!_visited.ContainsKey(next))
+				{
+					_openList.Add(next);
+					_visited.Add(next, current);
+					next.SetGridNodeSearchState(GridNodeSearchState.Queue);
+				}
+			}
+
+			_openList.Remove(current);
+			current.SetGridNodeSearchState(GridNodeSearchState.Processed);
+			// not yet finished
+			return false;
+		}
 	}
+
 }

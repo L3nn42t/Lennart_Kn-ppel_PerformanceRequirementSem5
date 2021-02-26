@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-namespace GP3._04_SearchAlgorithms.Dijkstra
+namespace UEGP3PR
 {
 	public class DijkstraSearch : SearchBase
 	{
+		//this is a normal djikstaSearch, the only thing of note is that in Unit targetnode doent necessary equal moveNode
 		protected override void InitializeSearch()
 		{
-			
+
 			_startNode = _unit.ClosestGridNode;
 			_goalNode = _unit._moveNode;
 
@@ -18,7 +19,7 @@ namespace GP3._04_SearchAlgorithms.Dijkstra
 			//	gridNode.Reset();
 			//}
 			_manager.ResetNodeSearchState();
-			
+
 			_openList = new List<GridNode>();
 			_visited = new Dictionary<GridNode, GridNode>();
 
@@ -30,10 +31,10 @@ namespace GP3._04_SearchAlgorithms.Dijkstra
 		protected override bool StepToGoal()
 		{
 			// sort all 
-			
+
 			_openList = _openList.OrderBy(n => n.CostSoFar).ToList();
 			GridNode current = _openList[0];
-			
+
 			// goal found
 			if (current == _goalNode)
 			{
@@ -43,7 +44,7 @@ namespace GP3._04_SearchAlgorithms.Dijkstra
 
 			foreach (GridNode next in current.Neighbours)
 			{
-				
+
 
 				float newCost = current.CostSoFar + next.Cost;
 				bool alreadyVisited = _visited.ContainsKey(next);

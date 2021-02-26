@@ -1,13 +1,16 @@
 ﻿
-
-public enum GridNodeUseState 
+namespace UEGP3PR
 {
-   none,
-   walkable,//blue
-   attackable,//red
-    // light grey, transperaent
+    public enum GridNodeUseState
+    {
+        none,
+        walkable,//blue
+        attackable,//red
+                   // light grey, transperaent
 
 
-   //For the enemy
-   danger, // purple, shows enemys range
+        //For the enemy
+        danger, // purple, shows enemys range
+    }
 }
+

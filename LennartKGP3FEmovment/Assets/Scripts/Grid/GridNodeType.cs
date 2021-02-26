@@ -1,5 +1,8 @@
 ﻿
+namespace UEGP3PR
+{
 
+}
 public enum GridNodeType 
 {
     //Should be used to change terrain, specific interactions to be done in grid

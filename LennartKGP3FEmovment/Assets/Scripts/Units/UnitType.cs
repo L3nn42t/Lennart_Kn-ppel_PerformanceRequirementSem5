@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-[CreateAssetMenu(fileName = "FEMovment", menuName = "Units/New UnitType", order = 200)]
-public class UnitType : ScriptableObject
+namespace UEGP3PR
 {
-    public int Groundcost;
-    public int Wallcost;
-    public int Forestcost;
-    public int RoughCost;
+    [CreateAssetMenu(fileName = "FEMovment", menuName = "Units/New UnitType", order = 200)]
+    public class UnitType : ScriptableObject
+    {// just a container for costof tile, implemented in Gridnode and Unit.
+        public int Groundcost;
+        public int Wallcost;
+        public int Forestcost;
+        public int RoughCost;
+    }
 }
+

@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace GP3._04_SearchAlgorithms.BFS
+namespace UEGP3PR
 {
 	[CustomEditor(typeof(SearchBase), true)]
 	public class SearchBaseEditor : Editor
